@@ -1,0 +1,48 @@
+<article class="kpi-card">
+  <header class="card-header">
+    <div>
+      <p class="label">Live repository KPI</p>
+      <h2>{{ (repositoryKpi$ | async)?.fullName ?? 'Loading repository' }}</h2>
+    </div>
+
+    <button type="button" (click)="refresh()" [disabled]="loading$ | async">
+      Refresh
+    </button>
+  </header>
+
+  @if (error$ | async; as error) {
+    <p class="error" role="alert">{{ error }}</p>
+  }
+
+  @if (repositoryKpi$ | async; as kpi) {
+    <p class="description">{{ kpi.description }}</p>
+
+    <dl class="metrics">
+      <div>
+        <dt>Stars</dt>
+        <dd>{{ kpi.stars | number }}</dd>
+      </div>
+      <div>
+        <dt>Forks</dt>
+        <dd>{{ kpi.forks | number }}</dd>
+      </div>
+      <div>
+        <dt>Open issues</dt>
+        <dd>{{ kpi.openIssues | number }}</dd>
+      </div>
+      <div>
+        <dt>Watchers</dt>
+        <dd>{{ kpi.watchers | number }}</dd>
+      </div>
+    </dl>
+
+    <footer>
+      Last pushed {{ kpi.pushedAt | date: 'medium' }}
+      <a [href]="kpi.url" target="_blank" rel="noreferrer">View on GitHub</a>
+    </footer>
+  } @else {
+    <div class="loading-state" aria-live="polite">
+      Fetching live GitHub metrics...
+    </div>
+  }
+</article>
