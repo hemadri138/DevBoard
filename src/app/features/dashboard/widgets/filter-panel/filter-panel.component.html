@@ -1,0 +1,22 @@
+<section class="filter-panel" aria-label="Dashboard filters">
+  <div>
+    <p class="label">Shared filters</p>
+    <h2>Repository activity window</h2>
+    <p>{{ dateRangeSummary$ | async }}</p>
+  </div>
+
+  <div class="range-control" role="radiogroup" aria-label="Date range">
+    @for (option of dateRangeOptions; track option.value) {
+      <label>
+        <input
+          type="radio"
+          name="dateRange"
+          [value]="option.value"
+          [ngModel]="dateRangePreset$ | async"
+          (ngModelChange)="setDateRange($event)"
+        />
+        <span>{{ option.label }}</span>
+      </label>
+    }
+  </div>
+</section>

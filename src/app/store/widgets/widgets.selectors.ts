@@ -10,12 +10,37 @@ export const selectRepositoryKpi = createSelector(
   (state) => state.repositoryKpi
 );
 
-export const selectWidgetsLoading = createSelector(
+export const selectActivityPoints = createSelector(
   selectWidgetsState,
-  (state) => state.loading
+  (state) => state.activityPoints
 );
 
-export const selectWidgetsError = createSelector(
+export const selectRecentItems = createSelector(
   selectWidgetsState,
-  (state) => state.error
+  (state) => state.recentItems
+);
+
+export const selectKpiLoading = createSelector(
+  selectWidgetsState,
+  (state) => state.kpiLoading
+);
+
+export const selectActivityLoading = createSelector(
+  selectWidgetsState,
+  (state) => state.activityLoading
+);
+
+export const selectKpiError = createSelector(
+  selectWidgetsState,
+  (state) => state.kpiError
+);
+
+export const selectActivityError = createSelector(
+  selectWidgetsState,
+  (state) => state.activityError
+);
+
+export const selectLoadedCommitCount = createSelector(
+  selectRecentItems,
+  (items) => items.length
 );

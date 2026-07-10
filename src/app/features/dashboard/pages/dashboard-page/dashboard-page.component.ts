@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+
+import { WidgetsFacade } from '../../../../store/widgets/widgets.facade';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -6,4 +8,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './dashboard-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DashboardPageComponent {}
+export class DashboardPageComponent implements OnInit {
+  constructor(private readonly widgetsFacade: WidgetsFacade) {}
+
+  ngOnInit(): void {
+    this.widgetsFacade.loadDashboardData();
+  }
+}

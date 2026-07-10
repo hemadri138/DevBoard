@@ -1,0 +1,46 @@
+<article class="table-card">
+  <header>
+    <div>
+      <p class="label">Recent commits / PRs</p>
+      <h2>Repository activity feed</h2>
+    </div>
+    @if (loading$ | async) {
+      <span class="status">Syncing</span>
+    }
+  </header>
+
+  @if (error$ | async; as error) {
+    <p class="error" role="alert">{{ error }}</p>
+  }
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Type</th>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of recentItems$ | async; track item.id) {
+          <tr>
+            <td>{{ item.type }}</td>
+            <td>
+              <a [href]="item.url" target="_blank" rel="noreferrer">
+                {{ item.title }}
+              </a>
+            </td>
+            <td>{{ item.author }}</td>
+            <td>{{ item.date | date: 'mediumDate' }}</td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="4">No activity loaded for this range.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</article>

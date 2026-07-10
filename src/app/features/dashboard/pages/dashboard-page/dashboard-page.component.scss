@@ -41,14 +41,42 @@ h1 {
 
 .widget-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(12, 1fr);
   gap: 20px;
   max-width: 1180px;
   margin: 0 auto;
 }
 
+app-kpi-card,
+app-activity-chart,
+app-recent-activity-table {
+  min-width: 0;
+}
+
+app-kpi-card {
+  grid-column: span 4;
+}
+
+app-activity-chart {
+  grid-column: span 8;
+}
+
+app-recent-activity-table {
+  grid-column: 1 / -1;
+}
+
 @media (max-width: 720px) {
   .dashboard-shell {
     padding: 24px 16px;
+  }
+
+  .widget-grid {
+    grid-template-columns: 1fr;
+  }
+
+  app-kpi-card,
+  app-activity-chart,
+  app-recent-activity-table {
+    grid-column: auto;
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { WidgetsFacade } from '../../../../store/widgets/widgets.facade';
 
@@ -8,16 +8,13 @@ import { WidgetsFacade } from '../../../../store/widgets/widgets.facade';
   styleUrl: './kpi-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class KpiCardComponent implements OnInit {
+export class KpiCardComponent {
   readonly repositoryKpi$ = this.widgetsFacade.repositoryKpi$;
-  readonly loading$ = this.widgetsFacade.loading$;
-  readonly error$ = this.widgetsFacade.error$;
+  readonly loadedCommitCount$ = this.widgetsFacade.loadedCommitCount$;
+  readonly loading$ = this.widgetsFacade.kpiLoading$;
+  readonly error$ = this.widgetsFacade.kpiError$;
 
   constructor(private readonly widgetsFacade: WidgetsFacade) {}
-
-  ngOnInit(): void {
-    this.widgetsFacade.loadRepositoryKpi();
-  }
 
   refresh(): void {
     this.widgetsFacade.loadRepositoryKpi();

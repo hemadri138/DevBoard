@@ -1,0 +1,24 @@
+<article class="chart-card">
+  <header>
+    <div>
+      <p class="label">Activity over time</p>
+      <h2>Commit trend</h2>
+    </div>
+    @if (loading$ | async) {
+      <span class="status">Updating</span>
+    }
+  </header>
+
+  @if (error$ | async; as error) {
+    <p class="error" role="alert">{{ error }}</p>
+  }
+
+  <div class="chart-frame">
+    <canvas
+      baseChart
+      [data]="(chartData$ | async) ?? emptyChartData"
+      [options]="chartOptions"
+      [type]="'line'"
+    ></canvas>
+  </div>
+</article>

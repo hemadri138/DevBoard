@@ -34,6 +34,10 @@
         <dt>Watchers</dt>
         <dd>{{ kpi.watchers | number }}</dd>
       </div>
+      <div>
+        <dt>Range commits</dt>
+        <dd>{{ loadedCommitCount$ | async | number }}</dd>
+      </div>
     </dl>
 
     <footer>
