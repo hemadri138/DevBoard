@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { WidgetsState } from './widgets.reducer';
+import { recentActivityAdapter, WidgetsState } from './widgets.reducer';
 
 export const selectWidgetsState =
   createFeatureSelector<WidgetsState>('widgets');
@@ -15,9 +15,11 @@ export const selectActivityPoints = createSelector(
   (state) => state.activityPoints
 );
 
+const recentActivitySelectors = recentActivityAdapter.getSelectors();
+
 export const selectRecentItems = createSelector(
   selectWidgetsState,
-  (state) => state.recentItems
+  recentActivitySelectors.selectAll
 );
 
 export const selectKpiLoading = createSelector(
@@ -41,6 +43,6 @@ export const selectActivityError = createSelector(
 );
 
 export const selectLoadedCommitCount = createSelector(
-  selectRecentItems,
-  (items) => items.length
+  selectWidgetsState,
+  recentActivitySelectors.selectTotal
 );

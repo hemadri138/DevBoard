@@ -2,33 +2,10 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const shouldAnalyze = process.env.ANALYZE === 'true';
 
-module.exports = {
-  optimization: {
-    runtimeChunk: 'single',
-    splitChunks: {
-      chunks: 'all',
-      maxInitialRequests: 8,
-      minSize: 20000,
-      cacheGroups: {
-        ngrx: {
-          test: /[\\/]node_modules[\\/]@ngrx[\\/]/,
-          name: 'vendor-ngrx',
-          priority: 30
-        },
-        charts: {
-          test: /[\\/]node_modules[\\/](chart\.js|ng2-charts)[\\/]/,
-          name: 'vendor-charts',
-          priority: 25
-        },
-        angular: {
-          test: /[\\/]node_modules[\\/]@angular[\\/]/,
-          name: 'vendor-angular',
-          priority: 20
-        }
-      }
-    }
-  },
-  plugins: [
+module.exports = (config) => {
+  const isProduction = config.mode === 'production';
+  const plugins = [
+    ...(config.plugins ?? []),
     ...(shouldAnalyze
       ? [
           new BundleAnalyzerPlugin({
@@ -38,5 +15,45 @@ module.exports = {
           })
         ]
       : [])
-  ]
+  ];
+
+  if (!isProduction) {
+    return {
+      ...config,
+      plugins
+    };
+  }
+
+  return {
+    ...config,
+    optimization: {
+      ...(config.optimization ?? {}),
+      chunkIds: 'deterministic',
+      moduleIds: 'deterministic',
+      runtimeChunk: 'single',
+      splitChunks: {
+        chunks: 'all',
+        maxInitialRequests: 8,
+        minSize: 20000,
+        cacheGroups: {
+          ngrx: {
+            test: /[\\/]node_modules[\\/]@ngrx[\\/]/,
+            name: 'vendor-ngrx',
+            priority: 30
+          },
+          charts: {
+            test: /[\\/]node_modules[\\/](chart\.js|ng2-charts)[\\/]/,
+            name: 'vendor-charts',
+            priority: 25
+          },
+          angular: {
+            test: /[\\/]node_modules[\\/]@angular[\\/]/,
+            name: 'vendor-angular',
+            priority: 20
+          }
+        }
+      }
+    },
+    plugins
+  };
 };

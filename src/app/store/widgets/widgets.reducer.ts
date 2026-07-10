@@ -1,3 +1,4 @@
+import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 
 import {
@@ -7,25 +8,28 @@ import {
 } from '../../core/models/github-repository.model';
 import { WidgetsActions } from './widgets.actions';
 
-export interface WidgetsState {
+export interface WidgetsState extends EntityState<RecentActivityItem> {
   readonly repositoryKpi: RepositoryKpi | null;
   readonly activityPoints: readonly ActivityPoint[];
-  readonly recentItems: readonly RecentActivityItem[];
   readonly kpiLoading: boolean;
   readonly activityLoading: boolean;
   readonly kpiError: string | null;
   readonly activityError: string | null;
 }
 
-export const initialWidgetsState: WidgetsState = {
-  repositoryKpi: null,
-  activityPoints: [],
-  recentItems: [],
-  kpiLoading: false,
-  activityLoading: false,
-  kpiError: null,
-  activityError: null
-};
+export const recentActivityAdapter = createEntityAdapter<RecentActivityItem>({
+  sortComparer: (first, second) => second.date.localeCompare(first.date)
+});
+
+export const initialWidgetsState: WidgetsState =
+  recentActivityAdapter.getInitialState({
+    repositoryKpi: null,
+    activityPoints: [],
+    kpiLoading: false,
+    activityLoading: false,
+    kpiError: null,
+    activityError: null
+  });
 
 export const widgetsReducer = createReducer(
   initialWidgetsState,
@@ -57,12 +61,12 @@ export const widgetsReducer = createReducer(
   })),
   on(
     WidgetsActions.loadRepositoryActivitySuccess,
-    (state, { points, recentItems }): WidgetsState => ({
-      ...state,
-      activityPoints: points,
-      recentItems,
-      activityLoading: false
-    })
+    (state, { points, recentItems }): WidgetsState =>
+      recentActivityAdapter.setAll([...recentItems], {
+        ...state,
+        activityPoints: points,
+        activityLoading: false
+      })
   ),
   on(
     WidgetsActions.loadRepositoryActivityFailure,

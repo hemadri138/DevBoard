@@ -4,6 +4,7 @@ import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, of, switchMap } from 'rxjs';
 
 import { GitHubApiService } from '../../core/services/github-api.service';
+import { MockActivityService } from '../../core/services/mock-activity.service';
 import { AppState } from '../app.state';
 import { FiltersActions } from '../filters/filters.actions';
 import { selectDateRange } from '../filters/filters.selectors';
@@ -72,7 +73,10 @@ export class WidgetsEffects {
             map((activity) =>
               WidgetsActions.loadRepositoryActivitySuccess({
                 points: activity.points,
-                recentItems: activity.recentItems
+                recentItems: this.mockActivity.expandRecentItems(
+                  activity.recentItems,
+                  dateRange
+                )
               })
             ),
             catchError((error: unknown) =>
@@ -90,6 +94,7 @@ export class WidgetsEffects {
   constructor(
     private readonly actions$: Actions,
     private readonly githubApi: GitHubApiService,
+    private readonly mockActivity: MockActivityService,
     private readonly store: Store<AppState>
   ) {}
 

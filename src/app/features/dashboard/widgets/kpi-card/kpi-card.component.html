@@ -11,7 +11,10 @@
   </header>
 
   @if (error$ | async; as error) {
-    <p class="error" role="alert">{{ error }}</p>
+    <div class="error" role="alert">
+      <span>{{ error }}</span>
+      <button type="button" (click)="refresh()">Retry</button>
+    </div>
   }
 
   @if (repositoryKpi$ | async; as kpi) {
@@ -45,8 +48,16 @@
       <a [href]="kpi.url" target="_blank" rel="noreferrer">View on GitHub</a>
     </footer>
   } @else {
-    <div class="loading-state" aria-live="polite">
-      Fetching live GitHub metrics...
-    </div>
+    @if (loading$ | async) {
+      <div class="metric-skeleton" aria-hidden="true">
+        @for (row of skeletonRows; track row) {
+          <span></span>
+        }
+      </div>
+    } @else {
+      <div class="loading-state" aria-live="polite">
+        No repository metrics loaded.
+      </div>
+    }
   }
 </article>

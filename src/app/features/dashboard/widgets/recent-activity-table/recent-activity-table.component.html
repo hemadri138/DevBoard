@@ -3,6 +3,7 @@
     <div>
       <p class="label">Recent commits / PRs</p>
       <h2>Repository activity feed</h2>
+      <p class="meta">{{ loadedCommitCount$ | async | number }} virtualized rows</p>
     </div>
     @if (loading$ | async) {
       <span class="status">Syncing</span>
@@ -10,37 +11,44 @@
   </header>
 
   @if (error$ | async; as error) {
-    <p class="error" role="alert">{{ error }}</p>
+    <div class="error" role="alert">
+      <span>{{ error }}</span>
+      <button type="button" (click)="retry()">Retry</button>
+    </div>
   }
 
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th scope="col">Type</th>
-          <th scope="col">Title</th>
-          <th scope="col">Author</th>
-          <th scope="col">Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (item of recentItems$ | async; track item.id) {
-          <tr>
-            <td>{{ item.type }}</td>
-            <td>
-              <a [href]="item.url" target="_blank" rel="noreferrer">
-                {{ item.title }}
-              </a>
-            </td>
-            <td>{{ item.author }}</td>
-            <td>{{ item.date | date: 'mediumDate' }}</td>
-          </tr>
-        } @empty {
-          <tr>
-            <td colspan="4">No activity loaded for this range.</td>
-          </tr>
-        }
-      </tbody>
-    </table>
-  </div>
+  @if ((loading$ | async) && (loadedCommitCount$ | async) === 0) {
+    <div class="table-skeleton" aria-hidden="true">
+      @for (row of skeletonRows; track row) {
+        <span></span>
+      }
+    </div>
+  } @else {
+    <div class="table-wrap">
+      <div class="table-header" role="row">
+        <span role="columnheader">Type</span>
+        <span role="columnheader">Title</span>
+        <span role="columnheader">Author</span>
+        <span role="columnheader">Date</span>
+      </div>
+
+      <cdk-virtual-scroll-viewport itemSize="56" class="activity-viewport">
+        <a
+          class="activity-row"
+          *cdkVirtualFor="
+            let item of (recentItems$ | async) ?? [];
+            trackBy: trackById
+          "
+          [href]="item.url"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <span class="type">{{ item.type }}</span>
+          <span class="title">{{ item.title }}</span>
+          <span>{{ item.author }}</span>
+          <span>{{ item.date | date: 'mediumDate' }}</span>
+        </a>
+      </cdk-virtual-scroll-viewport>
+    </div>
+  }
 </article>

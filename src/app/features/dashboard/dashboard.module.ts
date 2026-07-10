@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
@@ -22,7 +23,13 @@ import { RecentActivityTableComponent } from './widgets/recent-activity-table/re
     RecentActivityTableComponent,
     FilterPanelComponent
   ],
-  imports: [CommonModule, FormsModule, BaseChartDirective, DashboardRoutingModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ScrollingModule,
+    BaseChartDirective,
+    DashboardRoutingModule
+  ],
   providers: [provideCharts(withDefaultRegisterables())]
 })
 export class DashboardModule {}

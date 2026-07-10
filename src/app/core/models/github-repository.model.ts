@@ -46,7 +46,7 @@ export interface ActivityPoint {
 
 export interface RecentActivityItem {
   readonly id: string;
-  readonly type: 'commit';
+  readonly type: 'commit' | 'pull-request';
   readonly title: string;
   readonly author: string;
   readonly date: string;

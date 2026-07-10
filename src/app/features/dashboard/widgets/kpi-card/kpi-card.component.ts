@@ -9,6 +9,7 @@ import { WidgetsFacade } from '../../../../store/widgets/widgets.facade';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class KpiCardComponent {
+  readonly skeletonRows = Array.from({ length: 4 }, (_, index) => index);
   readonly repositoryKpi$ = this.widgetsFacade.repositoryKpi$;
   readonly loadedCommitCount$ = this.widgetsFacade.loadedCommitCount$;
   readonly loading$ = this.widgetsFacade.kpiLoading$;

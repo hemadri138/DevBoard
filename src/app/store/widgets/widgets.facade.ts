@@ -34,4 +34,8 @@ export class WidgetsFacade {
   loadRepositoryKpi(): void {
     this.store.dispatch(WidgetsActions.loadRepositoryKPI());
   }
+
+  loadRepositoryActivity(): void {
+    this.store.dispatch(WidgetsActions.loadRepositoryActivity());
+  }
 }

@@ -10,10 +10,20 @@
   </header>
 
   @if (error$ | async; as error) {
-    <p class="error" role="alert">{{ error }}</p>
+    <div class="error" role="alert">
+      <span>{{ error }}</span>
+      <button type="button" (click)="retry()">Retry</button>
+    </div>
   }
 
   <div class="chart-frame">
+    @if (loading$ | async) {
+      <div class="chart-skeleton" aria-hidden="true">
+        @for (bar of skeletonBars; track bar) {
+          <span></span>
+        }
+      </div>
+    }
     <canvas
       baseChart
       [data]="(chartData$ | async) ?? emptyChartData"

@@ -41,15 +41,64 @@ h2 {
   min-height: 240px;
 }
 
+.chart-skeleton {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-items: end;
+  gap: 8px;
+  padding: 14px 4px 0;
+  pointer-events: none;
+}
+
+.chart-skeleton span {
+  min-height: 28px;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(
+    180deg,
+    rgba(139, 233, 201, 0.26),
+    rgba(139, 233, 201, 0.06)
+  );
+}
+
+.chart-skeleton span:nth-child(3n) {
+  height: 42%;
+}
+
+.chart-skeleton span:nth-child(3n + 1) {
+  height: 74%;
+}
+
+.chart-skeleton span:nth-child(3n + 2) {
+  height: 56%;
+}
+
 canvas {
   max-height: 260px;
 }
 
 .error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   margin: 0;
   padding: 12px 14px;
   border: 1px solid rgba(248, 113, 113, 0.42);
   border-radius: 6px;
   background: rgba(127, 29, 29, 0.28);
   color: #fecaca;
+}
+
+button {
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid rgba(254, 202, 202, 0.5);
+  border-radius: 6px;
+  background: transparent;
+  color: #fee2e2;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
 }

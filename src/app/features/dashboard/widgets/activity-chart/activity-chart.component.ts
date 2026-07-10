@@ -11,6 +11,7 @@ import { WidgetsFacade } from '../../../../store/widgets/widgets.facade';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivityChartComponent {
+  readonly skeletonBars = Array.from({ length: 12 }, (_, index) => index);
   readonly emptyChartData: ChartConfiguration<'line'>['data'] = {
     labels: [],
     datasets: []
@@ -70,4 +71,8 @@ export class ActivityChartComponent {
   };
 
   constructor(private readonly widgetsFacade: WidgetsFacade) {}
+
+  retry(): void {
+    this.widgetsFacade.loadRepositoryActivity();
+  }
 }
