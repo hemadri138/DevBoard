@@ -59,7 +59,28 @@ export class MockActivityService {
       title: this.titles[index % this.titles.length],
       author: this.authors[index % this.authors.length],
       date: date.toISOString(),
-      url: 'https://github.com/angular/angular'
+      url: this.createMockUrl(type, index, dateRange.preset)
     };
+  }
+
+  private createMockUrl(
+    type: RecentActivityItem['type'],
+    index: number,
+    preset: DateRange['preset']
+  ): string {
+    if (type === 'pull-request') {
+      return `https://github.com/angular/angular/pull/${10_000 + index}`;
+    }
+
+    return `https://github.com/angular/angular/commit/${this.createMockSha(
+      index,
+      preset
+    )}`;
+  }
+
+  private createMockSha(index: number, preset: DateRange['preset']): string {
+    const seed = `${preset}${index.toString(16).padStart(8, '0')}`;
+
+    return seed.repeat(Math.ceil(40 / seed.length)).slice(0, 40);
   }
 }

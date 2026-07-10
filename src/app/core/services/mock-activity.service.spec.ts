@@ -11,5 +11,7 @@ describe('MockActivityService', () => {
 
     expect(rows.length).toBe(5000);
     expect(rows.some((row) => row.type === 'pull-request')).toBeTrue();
+    expect(rows.some((row) => /\/pull\/\d+$/.test(row.url))).toBeTrue();
+    expect(rows.some((row) => /\/commit\/[a-f0-9]{40}$/.test(row.url))).toBeTrue();
   });
 });
