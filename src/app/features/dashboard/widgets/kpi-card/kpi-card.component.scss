@@ -3,10 +3,10 @@
   gap: 20px;
   min-height: 360px;
   padding: 24px;
-  border: 1px solid rgba(148, 163, 184, 0.22);
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: rgba(15, 23, 42, 0.82);
-  box-shadow: 0 24px 80px rgba(2, 6, 23, 0.32);
+  background: var(--surface);
+  box-shadow: 0 24px 80px var(--shadow);
 }
 
 .card-header {
@@ -18,7 +18,7 @@
 
 .label {
   margin: 0 0 8px;
-  color: #8be9c9;
+  color: var(--accent);
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0;
@@ -27,7 +27,7 @@
 
 h2 {
   margin: 0;
-  color: #f8fafc;
+  color: var(--title);
   font-size: 1.4rem;
   line-height: 1.25;
 }
@@ -35,10 +35,10 @@ h2 {
 button {
   min-height: 38px;
   padding: 0 14px;
-  border: 1px solid rgba(139, 233, 201, 0.62);
+  border: 1px solid var(--accent);
   border-radius: 6px;
-  background: rgba(139, 233, 201, 0.1);
-  color: #d6fff2;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--title);
   cursor: pointer;
   font: inherit;
   font-weight: 700;
@@ -51,7 +51,7 @@ button:disabled {
 
 .description {
   margin: 0;
-  color: #bdcce0;
+  color: var(--muted);
   line-height: 1.6;
 }
 
@@ -64,19 +64,19 @@ button:disabled {
 
 .metrics div {
   padding: 16px;
-  border: 1px solid rgba(148, 163, 184, 0.14);
+  border: 1px solid var(--border-soft);
   border-radius: 8px;
-  background: rgba(30, 41, 59, 0.72);
+  background: var(--surface-raised);
 }
 
 dt {
-  color: #94a3b8;
+  color: var(--muted-strong);
   font-size: 0.78rem;
 }
 
 dd {
   margin: 6px 0 0;
-  color: #f8fafc;
+  color: var(--title);
   font-size: 1.6rem;
   font-weight: 800;
 }
@@ -86,12 +86,12 @@ footer {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 12px;
-  color: #94a3b8;
+  color: var(--muted-strong);
   font-size: 0.9rem;
 }
 
 a {
-  color: #8be9c9;
+  color: var(--accent);
   font-weight: 700;
   text-decoration: none;
 }
@@ -103,16 +103,16 @@ a {
   gap: 12px;
   margin: 0;
   padding: 12px 14px;
-  border: 1px solid rgba(248, 113, 113, 0.42);
+  border: 1px solid var(--error-border);
   border-radius: 6px;
-  background: rgba(127, 29, 29, 0.28);
-  color: #fecaca;
+  background: var(--error-bg);
+  color: var(--error-text);
 }
 
 .error button {
-  border-color: rgba(254, 202, 202, 0.5);
+  border-color: var(--error-border);
   background: transparent;
-  color: #fee2e2;
+  color: var(--error-text);
 }
 
 .metric-skeleton {
@@ -126,9 +126,9 @@ a {
   border-radius: 8px;
   background: linear-gradient(
     90deg,
-    rgba(148, 163, 184, 0.08),
-    rgba(148, 163, 184, 0.2),
-    rgba(148, 163, 184, 0.08)
+    color-mix(in srgb, var(--muted-strong) 8%, transparent),
+    color-mix(in srgb, var(--muted-strong) 20%, transparent),
+    color-mix(in srgb, var(--muted-strong) 8%, transparent)
   );
 }
 
@@ -136,7 +136,7 @@ a {
   display: grid;
   min-height: 160px;
   place-items: center;
-  border: 1px dashed rgba(148, 163, 184, 0.3);
+  border: 1px dashed var(--border);
   border-radius: 8px;
-  color: #adc0d8;
+  color: var(--muted);
 }

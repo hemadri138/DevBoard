@@ -2,10 +2,10 @@
   display: grid;
   gap: 18px;
   padding: 24px;
-  border: 1px solid rgba(148, 163, 184, 0.22);
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: rgba(15, 23, 42, 0.82);
-  box-shadow: 0 24px 80px rgba(2, 6, 23, 0.32);
+  background: var(--surface);
+  box-shadow: 0 24px 80px var(--shadow);
 }
 
 header {
@@ -17,7 +17,7 @@ header {
 
 .label {
   margin: 0 0 8px;
-  color: #8be9c9;
+  color: var(--accent);
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0;
@@ -30,13 +30,13 @@ h2,
 }
 
 h2 {
-  color: #f8fafc;
+  color: var(--title);
   font-size: 1.35rem;
 }
 
 .meta,
 .status {
-  color: #adc0d8;
+  color: var(--muted);
   font-size: 0.88rem;
 }
 
@@ -52,12 +52,12 @@ h2 {
 }
 
 .table-header {
-  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  border-bottom: 1px solid var(--border);
 }
 
 .table-header span {
   padding: 0 12px 12px;
-  color: #94a3b8;
+  color: var(--muted-strong);
   font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -72,8 +72,8 @@ h2 {
 .activity-row {
   align-items: center;
   min-height: 56px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
-  color: #cbd5e1;
+  border-bottom: 1px solid var(--border-soft);
+  color: var(--page-text);
   text-decoration: none;
 }
 
@@ -85,17 +85,17 @@ h2 {
 }
 
 .activity-row:hover {
-  background: rgba(148, 163, 184, 0.08);
+  background: color-mix(in srgb, var(--muted-strong) 8%, transparent);
 }
 
 .type {
-  color: #8be9c9;
+  color: var(--accent);
   font-size: 0.82rem;
   font-weight: 700;
 }
 
 .title {
-  color: #f8fafc;
+  color: var(--title);
   font-weight: 700;
 }
 
@@ -106,19 +106,19 @@ h2 {
   gap: 12px;
   margin: 0;
   padding: 12px 14px;
-  border: 1px solid rgba(248, 113, 113, 0.42);
+  border: 1px solid var(--error-border);
   border-radius: 6px;
-  background: rgba(127, 29, 29, 0.28);
-  color: #fecaca;
+  background: var(--error-bg);
+  color: var(--error-text);
 }
 
 button {
   min-height: 34px;
   padding: 0 12px;
-  border: 1px solid rgba(254, 202, 202, 0.5);
+  border: 1px solid var(--error-border);
   border-radius: 6px;
   background: transparent;
-  color: #fee2e2;
+  color: var(--error-text);
   cursor: pointer;
   font: inherit;
   font-weight: 700;
@@ -134,9 +134,9 @@ button {
   border-radius: 6px;
   background: linear-gradient(
     90deg,
-    rgba(148, 163, 184, 0.08),
-    rgba(148, 163, 184, 0.2),
-    rgba(148, 163, 184, 0.08)
+    color-mix(in srgb, var(--muted-strong) 8%, transparent),
+    color-mix(in srgb, var(--muted-strong) 20%, transparent),
+    color-mix(in srgb, var(--muted-strong) 8%, transparent)
   );
 }
 

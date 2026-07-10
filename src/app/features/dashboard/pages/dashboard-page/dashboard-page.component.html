@@ -1,4 +1,11 @@
-<main class="dashboard-shell">
+<main class="dashboard-shell" [class.light-theme]="(theme$ | async) === 'light'">
+  <header class="top-bar">
+    <span>DevBoard</span>
+    <button type="button" (click)="toggleTheme()">
+      {{ themeToggleLabel$ | async }}
+    </button>
+  </header>
+
   <section class="dashboard-hero" aria-labelledby="dashboard-title">
     <div>
       <p class="eyebrow">DevBoard</p>
